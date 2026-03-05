@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMJ SERVICE | Formation Entrepreneurs</title>
+<style>
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif;scroll-behavior:smooth;}
+body{background:#f4f6f9;color:#333;}
+
+/* HEADER */
+header{background:#0a1931;color:white;display:flex;justify-content:space-between;align-items:center;padding:15px 20px;}
+.logo{display:flex;align-items:center;}
+.logo img{height:50px;width:50px;border-radius:50%;margin-right:10px;border:2px solid white;}
+.menu-icon{font-size:28px;cursor:pointer;}
+
+/* MENU LATERAL */
+.side-menu{position:fixed;top:0;right:-260px;width:260px;height:100%;background:#162447;padding-top:60px;transition:0.3s;z-index:1000;}
+.side-menu a{display:block;padding:15px 20px;color:white;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.1);}
+.side-menu a:hover{background:#00c2ff;}
+
+/* HERO */
+.slider{width:100%;height:300px;overflow:hidden;position:relative;text-align:center;}
+.slider img{width:100%;height:100%;object-fit:cover;display:block;}
+
+/* EXPLICATION */
+.explanation{padding:60px 20px;background:white;}
+.explanation h2{text-align:center;margin-bottom:25px;font-size:28px;color:#0a1931;}
+.explanation p{max-width:900px;margin:15px auto;line-height:1.8;font-size:16px;color:#333;text-align:left;}
+
+/* NAVIGATION BAR */
+.navigation-bar{background:#162447;padding:25px;text-align:center;}
+.navigation-bar button{background:#00c2ff;color:white;border:none;padding:12px 25px;font-size:16px;border-radius:6px;margin-bottom:20px;cursor:pointer;}
+.nav-links{display:none;margin-top:20px;}
+.nav-links a{display:block;color:white;text-decoration:none;margin:5px 0;font-size:16px;}
+
+/* DETAIL SECTIONS */
+section.detail{padding:70px 20px;background:#f9f9f9;border-top:1px solid #ddd;}
+section.detail h2{text-align:center;margin-bottom:20px;color:#0a1931;}
+section.detail p{max-width:900px;margin:15px auto;line-height:1.9;font-size:16px;text-align:left;}
+.concept-img{display:block;max-width:600px;width:90%;height:auto;margin:20px auto 0 auto;border-radius:10px;}
+
+/* FORMULAIRE POSTULER */
+form{max-width:500px;margin:auto;}
+form input, form select{width:100%;padding:12px;margin:10px 0;border-radius:6px;border:1px solid #ccc;}
+.send-btn{width:100%;background:#00c2ff;color:white;padding:12px;border:none;border-radius:6px;font-weight:bold;cursor:pointer;}
+.send-btn:hover{background:#0077ff;}
+
+/* FORMATIONS SECTIONS */
+section.formation{padding:60px 20px;background:white;border-top:1px solid #ddd;}
+section.formation h2{text-align:center;margin-bottom:25px;font-size:26px;color:#0a1931;}
+section.formation p{max-width:900px;margin:15px auto;line-height:1.9;font-size:16px;color:#333;text-align:left;}
+section.formation ul{max-width:700px;margin:20px auto 0 auto;list-style:none;padding-left:20px;}
+section.formation li{margin:10px 0;font-size:16px;}
+section.formation a{color:#00c2ff;text-decoration:underline;font-weight:bold;}
+section.formation a:hover{color:#0077ff;}
+
+/* SITES UTILES */
+.sites-utiles{background:#1f4068;color:white;padding:20px;border-top:2px solid #00c2ff;max-width:900px;margin:30px auto 0 auto;border-radius:10px;font-size:14px;}
+.sites-utiles img{height:50px;display:block;margin:0 auto 15px auto;}
+.sites-utiles ul{list-style:none;padding-left:20px;margin-bottom:15px;}
+.sites-utiles li{margin:5px 0;}
+.sites-utiles a{color:#0cff;text-decoration:underline;font-weight:bold;}
+.sites-utiles a:hover{color:#ffffff;}
+
+/* FOOTER */
+footer{background:#0a1931;color:white;text-align:center;padding:25px;}
+
+/* FONDATEUR POPUP */
+.fondateur-popup{display:none;position:fixed;bottom:50px;right:50px;width:350px;max-width:90%;background:#00c2ff;color:white;padding:20px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:10000;}
+.fondateur-popup h2{margin-top:0;font-size:20px;text-align:center;}
+.fondateur-popup p{font-size:14px;line-height:1.6;margin:10px 0;}
+.fondateur-popup button{display:block;margin:15px auto 0 auto;padding:8px 16px;background:white;color:#00c2ff;border:none;border-radius:6px;cursor:pointer;font-weight:bold;}
+
+/* ASSISTANTE */
+.contact-btn{position: fixed;bottom: 30px;right: 30px;width: 60px;height: 60px;background:#00c2ff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:10000;cursor:pointer;transition: transform 0.2s, box-shadow 0.2s;}
+.contact-btn img{width:100%;height:100%;border-radius:50%;}
+.contact-btn:hover{transform: scale(1.1);box-shadow:0 6px 16px rgba(0,0,0,0.4);}
+#new-msg-badge{position:absolute;top:-5px;right:-5px;background:red;color:white;width:18px;height:18px;border-radius:50%;font-size:12px;display:flex;align-items:center;justify-content:center;text-align:center;}
+#popup-assistante{position:fixed;bottom:100px;right:100px;background:#00c2ff;color:white;padding:12px 20px;border-radius:12px;font-size:14px;box-shadow:0 4px 12px rgba(0,0,0,0.3);display:none;z-index:9999;}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo"><img src="logo.png" alt="Logo BMJ SERVICE"><h1>BMJ SERVICE</h1></div>
+<div class="menu-icon" onclick="openMenu()">☰</div>
+</header>
+
+<div id="menu" class="side-menu">
+<a href="#">Accueil</a>
+<a href="#">Formations</a>
+<a href="#">À propos</a>
+<a href="#">Témoignages</a>
+<a href="#">Contact</a>
+<a href="#">Inscription</a>
+</div>
+
+<section class="slider"><img src="image1.jpg" alt="Image principale"></section>
+
+<section class="explanation">
+<h2>BMJ SERVICE ?</h2>
+<p>BMJ SERVICE ne forme pas seulement des étudiants. Nous formons des leaders, des visionnaires et des bâtisseurs d’avenir. Notre mission est de transformer votre ambition en réussite concrète.</p>
+</section>
+
+<!-- NAVIGATION BAR "Allez à ▼" ouverte par défaut -->
+<div class="navigation-bar">
+  <button>Allez à ▼</button>
+  <div class="nav-links" id="nav-links" style="display:block;"> <!-- affichée par défaut -->
+    <a href="#entrepreneurs">Entrepreneurs</a>
+    <a href="#leadership">Leadership</a>
+    <a href="#marketing">Marketing Digital</a>
+    <a href="#finance">Gestion Financière</a>
+    <a href="#investissement">Investissement</a>
+    <a href="#formations">Formations</a>
+  </div>
+</div>
+
+<!-- SECTIONS DETAIL -->
+<section id="entrepreneurs" class="detail">
+<h2>Entrepreneurs</h2>
+<p>Être entrepreneur signifie transformer une idée en opportunité réelle. Chez BMJ SERVICE, nous vous apprenons à analyser le marché, développer une stratégie claire et bâtir une entreprise durable. Vous développerez discipline, vision stratégique et capacité d’innovation.</p>
+<img src="image.jpg" class="concept-img">
+</section>
+
+<section id="leadership" class="detail">
+<h2>Leadership</h2>
+<p>Un leader inspire, motive et guide vers un objectif commun. Vous apprendrez à prendre des décisions stratégiques, à gérer une équipe et à communiquer efficacement. Notre programme vous aide à développer charisme, confiance et capacité à influencer positivement votre entourage.</p>
+</section>
+
+<section id="marketing" class="detail">
+<h2>Marketing Digital</h2>
+<p>Maîtrisez les réseaux sociaux, la publicité en ligne et les stratégies digitales modernes pour attirer et fidéliser vos clients. Découvrez les meilleures pratiques pour créer une présence en ligne solide, convertir vos prospects et optimiser vos campagnes publicitaires.</p>
+<img src="image4.jpg" class="concept-img">
+</section>
+
+<section id="finance" class="detail">
+<h2>Gestion Financière</h2>
+<p>Apprenez à gérer vos finances intelligemment, optimiser vos dépenses et planifier vos investissements stratégiques. Comprenez le contrôle budgétaire, l’analyse financière et la maximisation des profits pour sécuriser et développer votre business.</p>
+</section>
+
+<section id="investissement" class="detail">
+<h2>Investissement</h2>
+<p>Découvrez comment faire travailler votre argent pour vous et créer des revenus passifs durables. Apprenez les bases de l’investissement intelligent, la gestion des risques et la diversification pour construire un patrimoine solide et rentable.</p>
+<img src="image1.jpg" class="concept-img">
+</section>
+
+<!-- FORMATIONS -->
+<section id="formations" class="formation">
+<h2>FORMATIONS</h2>
+
+<h3>Guide Complet</h3>
+<p>Découvrez nos livres et guides détaillés pour approfondir vos connaissances sur l’entrepreneuriat, le leadership, le marketing et la finance.</p>
+<ul>
+<li><a href="#">BMJ SERVICE</a></li>
+<li><a href="#">Stratégie Entrepreneuriale</a></li>
+<li><a href="#">Marketing et Finance</a></li>
+<li><a href="#">Leadership et Gestion</a></li>
+</ul>
+
+<h3>Formation Certifiée</h3>
+<p>Participez à nos formations certifiées et obtenez votre certificat officiel BMJ SERVICE. Découvrez le programme complet, achetez votre billet et suivez les sessions en direct avec nos experts.</p>
+<ul>
+<li><a href="#">Acheter un billet pour participer</a></li>
+<li><a href="#">Programme complet et horaires</a></li>
+<li><a href="#">Inscriptions et paiement</a></li>
+</ul>
+
+<!-- Touche inscription en bas -->
+<div class="navigation-bar">
+<button onclick="window.location.href=''">S'inscrire maintenant ▼</button>
+</div>
+</section>
+
+<!-- FORMULAIRE POSTULER -->
+<div class="navigation-bar">
+<form action="https://formsubmit.co/espoirmusiwa60@gmail.com" method="POST" id="postuler-form">
+<input type="hidden" name="_next" value="test.html">
+<input type="hidden" name="_captcha" value="true">
+<input type="text" name="Nom" placeholder="Votre nom" required>
+<input type="text" name="Prénom" placeholder="Votre prénom" required>
+<input type="tel" name="Téléphone" placeholder="Votre numéro de téléphone" required>
+<input type="email" name="Email" placeholder="Votre email" required>
+<select name="Durée de formation" required>
+<option value="">Choisir la durée de la formation</option>
+<option value="2 mois">2 mois</option>
+<option value="4 mois">4 mois</option>
+<option value="6 mois">6 mois</option>
+</select>
+<div class="g-recaptcha" data-sitekey="6LdrU4AsAAAAAFb_z4KjXAHjyRclNBCfe7CJvnbl"></div>
+<button type="submit" class="send-btn">Envoyer</button>
+</form>
+</div>
+
+<!-- SITES UTILES -->
+<section class="sites-utiles">
+<img src="ll.png" alt="Logo Gouvernement">
+<h3>SITES UTILES</h3>
+<ul>
+<li><a href="https://www.presidence.cd/" target="_blank">Présidence</a></li>
+<li><a href="https://primature.cd/" target="_blank">Primature</a></li>
+<li><a href="https://www.gouvernement.cd/" target="_blank">Gouvernement</a></li>
+</ul>
+
+<h3>SITES PARLEMENTAIRES</h3>
+<ul>
+<li><a href="https://www.assemblee-nationale.cd/" target="_blank">Assemblée nationale</a></li>
+<li><a href="http://www.senat.cd/" target="_blank">Sénat</a></li>
+</ul>
+
+<h3>SITES MINISTÉRIELS</h3>
+<ul>
+<li><a href="https://formation.gouv.cd/nos_articles/le_ministre/" target="_blank">Ministre de formation</a></li>
+</ul>
+
+<h3>SITES INSTITUTIONNELS</h3>
+<ul>
+<li><a href="https://www.dgi.gouv.cd/" target="_blank">DGI</a></li>
+<li><a href="https://douane.gouv.cd/" target="_blank">DGDA</a></li>
+<li><a href="http://www.dgrad.cd/" target="_blank">DGRAD</a></li>
+<li><a href="https://www.institutions.cd/" target="_blank">Autres institutions nationales</a></li>
+</ul>
+
+<h3>SITES D'INSTITUTIONS INTERNATIONALES</h3>
+<ul>
+<li><a href="https://au.int/fr" target="_blank">Union Africaine</a></li>
+<li><a href="https://www.un.org/fr/" target="_blank">ONU</a></li>
+<li><a href="https://monusco.unmissions.org/fr" target="_blank">MONUSCO</a></li>
+<li><a href="https://www.ohchr.org/fr" target="_blank">Droits de l'homme et autres</a></li>
+<li><a href="https://yali.state.gov/" target="_blank">YALI Network</a></li>
+</ul>
+</section>
+
+<!-- FOOTER + Historique Fondateur -->
+<footer>
+© 2026 BMJ SERVICE - Tous droits réservés
+<div class="navigation-bar">
+<button onclick="toggleFondateur()">Historique du Fondateur ▼</button>
+</div>
+<div id="fondateur-popup" class="fondateur-popup">
+<h2>Historique du Fondateur</h2>
+<p>
+Justin Mussiwa est un entrepreneur congolais originaire du Maniema. Il a fondé BMJ SERVICE pour former des leaders, des entrepreneurs et des innovateurs en RDC. Son parcours illustre engagement, discipline et capacité à transformer des idées en opportunités concrètes.
+</p>
+<p>
+Contact : <br>
+Téléphone : <a href="tel:+243993585711">0993585711</a><br>
+Email : <a href="mailto:mussiwajustin@gmail.com">mussiwajustin@gmail.com</a>
+</p>
+<button onclick="toggleFondateur()">Fermer</button>
+</div>
+</footer>
+
+<!-- ASSISTANTE -->
+<div id="popup-assistante">Salut, je suis espoir mussiwa votre assistante de BMJ SERVICE, en quoi puis-je vous aider aujourd'hui ?</div>
+<a href="https://wa.me/243978713440" target="_blank" class="contact-btn">
+<img src="m.png" alt="Contactez-nous">
+<div id="new-msg-badge">1</div>
+</a>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+// MENU
+function openMenu(){document.getElementById("menu").style.right="0";}
+document.addEventListener("click",function(event){
+let menu=document.getElementById("menu");let icon=document.querySelector(".menu-icon");
+if(!menu.contains(event.target) && !icon.contains(event.target)){menu.style.right="-260px";}});
+
+function toggleNav(){
+const links=document.getElementById('nav-links');
+links.style.display = links.style.display==='block'?'none':'block';
+}
+
+// FONDATEUR
+function toggleFondateur(){
+const popup=document.getElementById('fondateur-popup');
+popup.style.display=(popup.style.display==='block')?'none':'block';
+}
+
+// ASSISTANTE
+let hasClicked=false;
+const popup=document.getElementById("popup-assistante");
+const contactBtn=document.querySelector(".contact-btn");
+const badge=document.getElementById("new-msg-badge");
+window.addEventListener("load",()=>{
+popup.style.display="block";
+setTimeout(()=>{popup.style.display="none";},15000);
+});
+contactBtn.addEventListener("click",()=>{
+popup.style.display="none";
+badge.style.display="none";
+hasClicked=true;
+});
+
+// FORMULAIRE POSTULER
+document.getElementById("postuler-form").addEventListener("submit",function(e){
+if(grecaptcha.getResponse()===""){
+e.preventDefault();
+alert("Veuillez vérifier que vous n'êtes pas un robot avant d'envoyer le formulaire.");
+}});
+</script>
+
+</body>
+</html>
